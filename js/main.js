@@ -285,6 +285,8 @@ function searchQuery(){
         query =  place+','+food;
     } else if (place == '' && food != '' && kosher != ''){
         query =  kosher+','+food;
+    } else if (place != '' && food == '' && kosher != ''){
+        query =  kosher+','+place;
     } else {
         query = '';
     }
@@ -304,10 +306,10 @@ $('.main-button-link').click(function( event ) {
         $.ajax({
             data: data,
             type: "POST",
-            url: "wp-content/themes/eaters_fast/catquery.php",
+            url: "wp-content/themes/eaters_fast/includes/catsquery.php",
             success: function(result){
                 alert(result);
-                window.location.href = 'http://localhost/eatersTest/?page_id=1325';
+                window.location.href = 'http://localhost/eatersTest/?page_id=1335';
             }
         });
 
@@ -320,13 +322,13 @@ $('.main-button-link').click(function( event ) {
 
 
 
-
+var pageNumber = 1;
 function load_posts(){
     var ppp = 6; // Post per page
     var cat = $('#more_posts').data('category');
-    var pageNumber = 1;
+    var catand = 'array(' + cat + ')';
     pageNumber++;
-    var str = '&cat=' + cat + '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+    var str = '&category__and=' + catand + '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
     alert(str);
     $.ajax({
         type: "POST",

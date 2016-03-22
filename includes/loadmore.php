@@ -1,4 +1,5 @@
 <?php function more_post_ajax(){
+    require_once('catsid.php');
 
     $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 6;
     $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
@@ -8,11 +9,11 @@
     $args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
-        'posts_per_page' => $ppp,
-        'cat' => 2,
+        'posts_per_page' => 6,
+        'category__and' => array( $catid ),
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
-        'paged' => $page
+        'paged' => 1
     );
 
     $loop = new WP_Query($args);
