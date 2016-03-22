@@ -16,15 +16,16 @@ require_once('includes/catsid.php');
 
 
             <section class="page-items">
-                <div class="row category-row">
+                <div id='ajax-posts' class="row category-row">
                         
-             <div id='ajax-posts' class='row'>
+
     <?php
     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+    $mycats = array($catid);
     $args = array(
         'post_type' => 'post',
         'posts_per_page' => 6,
-        'category__and' => array( $catid ),
+        'category__and' => $mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
         'paged' => $paged
@@ -41,8 +42,10 @@ while ($loop->have_posts()) : $loop->the_post();
 endwhile;
 wp_reset_postdata();
 ?>
-</div>
+
 <div id='more_posts' style='padding-top:40px;' data-category='<?php echo $catid; ?>'>Load More</div>
+                
+
                 </div>
             </section>
 

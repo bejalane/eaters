@@ -328,7 +328,7 @@ function load_posts(){
     var cat = $('#more_posts').data('category');
     var catand = 'array(' + cat + ')';
     pageNumber++;
-    var str = '&category__and=' + catand + '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+    var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
     alert(str);
     $.ajax({
         type: "POST",

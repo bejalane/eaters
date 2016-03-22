@@ -6,14 +6,15 @@
 
     header("Content-Type: text/html");
 
+    $mycats = array($catid);
     $args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
         'posts_per_page' => 6,
-        'category__and' => array( $catid ),
+        'category__and' => $mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
-        'paged' => 1
+        'paged' => $page
     );
 
     $loop = new WP_Query($args);
