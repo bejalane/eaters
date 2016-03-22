@@ -1,0 +1,37 @@
+<div class="join-us-subtitles-block"><i class="fa fa-user"></i><span class="join-us-subtitles">פרטים אישיים</span></div>
+[text* text-357 placeholder "טלפון"][email* email-568 placeholder "אימייל"][text* text-358 placeholder "שם מלא"]
+
+<div class="join-us-subtitles-block"><i class="fa fa-home"></i><span class="join-us-subtitles">פרטי העסק</span></div>
+[text text-400 placeholder "כתובת העסק"][text text-401 placeholder "טלפון העסק"][text text-402 placeholder "שם העסק"]
+[textarea textarea-688 placeholder "פירוט שעות פתיחה"]
+[textarea textarea-689 placeholder "תיאור העסק"]
+<div class="join-us-subtitles-block"><i class="fa fa-camera"></i><span class="join-us-subtitles">תמונות לאתר</span></div>
+
+<div class="uploaders-wrapper">
+<div class="uploader uploader952" onclick="$('#file-952').click()">
+    click or drag here your images
+    <img src=""/>
+    [file file-952]
+</div>
+<div class="uploader uploader953" onclick="$('#file-953').click()">
+    click or drag here your images
+    <img src=""/>
+    [file file-953]
+</div>
+<div class="uploader uploader954" onclick="$('#file-954').click()">
+    click or drag here your images
+    <img src=""/>
+    [file file-954]
+</div>
+<div class="uploader uploader955" onclick="$('#file-955').click()">
+    click or drag here your images
+    <img src=""/>
+    [file file-955]
+</div>
+<div class="uploader uploader956" onclick="$('#file-956').click()">
+    click or drag here your images
+    <img src=""/>
+    [file file-956]
+</div>
+</div>
+[submit "< שלח את פרטי המסעדה ועבור לתשלום מאובטח"]
