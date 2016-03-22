@@ -1,1 +1,1 @@
-<?php $catid = '18,5' ?>
+<?php $catid = '11' ?>

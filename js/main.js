@@ -306,10 +306,10 @@ $('.main-button-link').click(function( event ) {
         $.ajax({
             data: data,
             type: "POST",
-            url: "wp-content/themes/eaters_fast/includes/catsquery.php",
+            url: "wp-content/themes/eaters_fast/catquery.php",
             success: function(result){
                 alert(result);
-                window.location.href = 'http://localhost/eatersTest/?page_id=1335';
+                window.location.href = 'http://localhost/eatersTest/?page_id=1325';
             }
         });
 
