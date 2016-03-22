@@ -10,7 +10,7 @@
         'suppress_filters' => true,
         'post_type' => 'post',
         'posts_per_page' => 6,
-        'cat' => '2',
+        'cat' => ',,2',
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
         'paged' => $page

@@ -30,7 +30,7 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-<div id='more_posts' style='padding-top:40px;' data-category='<?php echo $catid; ?>'>Load More</div>
+<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '$catid'; ?>'>Load More</div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 

@@ -7,7 +7,7 @@
     $args = array(
         'post_type' => 'post',
         'posts_per_page' => 18,
-        'cat' => '2',
+        'cat' => '5',
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
         'paged' => $paged
@@ -25,7 +25,7 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-<div id='more_posts' style='padding-top:40px;' data-category='<?php echo 2; ?>'>Load More</div>
+<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '5'; ?>'>Load More</div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 

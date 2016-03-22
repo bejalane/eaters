@@ -132,7 +132,7 @@ class WPSE67791_Walker_Category extends Walker_Category {
     public function start_el(&$output, $category, $depth, $args) {
         parent::start_el( $output, $category, $depth, $args );
                 $find = 'cat-item-' . $category->term_id . '"';
-                $replace = '' . $category->slug . '"';
+                $replace = '' . $category->term_id . '"';
                 $output = str_replace( $find, $replace, $output );
 
     }

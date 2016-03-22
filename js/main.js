@@ -74,7 +74,6 @@ $('.main-hero-img').css('opacity','0').load(function() {
 function slider() {
 
     //settings for slider
-
     var width = 2250;
     var animationSpeed = 40000;
     var pause = 0;
@@ -85,7 +84,6 @@ function slider() {
     var $slider = $('#slider');
     var $slideContainer = $('.slides', $slider);
     var $slides = $('.slide', $slider);
-
 
     var interval;
 
@@ -102,18 +100,12 @@ function slider() {
     function pauseSlider() {
         clearInterval(interval);
     }
-
     $slideContainer
     .on('mouseenter', pauseSlider)
     .on('mouseleave', startSlider);
-
     startSlider();
-
-
 }
-
 slider();
-
 
 
 function owlHeight() {
@@ -122,8 +114,8 @@ function owlHeight() {
   $('.slider-wrapper').height(x);
   $('.slide').height(x);
 }
-
 owlHeight();
+
 
 function itemHeight() {
     var y = $('.page-item ').width();
@@ -140,10 +132,9 @@ MAIN FORMS
 */
 
 if($(window).width() < 991) {
-   $('.page-menu ul li ').click(function(){
-    $(this).css('font-size','29px');
-});
-
+    $('.page-menu ul li ').click(function(){
+        $(this).css('font-size','29px');
+    });
 }
 
 $('.main-search-form').children('.chosen-container').width('180px');
@@ -187,9 +178,14 @@ function checkInputPlace() {
             var catClass = $(items).parent().attr('class');
             var catSlug = catClass.replace("cat-item ", "");
 
-            return catSlug;
+           
             break;
         }
+    }
+    if(catSlug){
+        return catSlug;
+    } else {
+        return '';
     }
 }
 
@@ -208,11 +204,14 @@ function checkInputFood() {
         if ( foodVal == slug) {
 
             var catClass = $(items).parent().attr('class');
-            var catSlug = catClass.replace("cat-item ", "");
-
-            return catSlug;
+            var catSlug = catClass.replace("cat-item ", "");           
             break;
-        } 
+        }
+    }
+    if(catSlug){
+        return catSlug;
+    } else {
+        return '';
     }
 }
 
@@ -238,7 +237,7 @@ function linkBtn() {
         if( link == '' ) {
             var lastLink = 'index.php?category_name=kosher';
         } else {
-            var lastLink = link + '+kosher';
+            var lastLink = link + '+' + 18;
         }
         
     } else {
@@ -269,16 +268,39 @@ $('.main-search-place').keyup(function() {
 });
 
 
+function searchQuery(){
+    var place = checkInputPlace();
+    var food = checkInputFood();
+    var kosher = ($('.search-checkbox').is(':checked')) ? 18 : '';
+    var query;
+    if(place != '' && food != '' && kosher != '') {
+        query = place+','+food+','+kosher;
+    } else if (place != '' && food == '' && kosher == ''){
+        query = place;
+    } else if (place == '' && food != '' && kosher == ''){
+        query = food;
+    } else if (place == '' && food == '' && kosher != ''){
+        query = kosher;
+    } else if (place != '' && food != '' && kosher == ''){
+        query =  place+','+food;
+    } else if (place == '' && food != '' && kosher != ''){
+        query =  kosher+','+food;
+    } else {
+        query = '';
+    }
+    return query;
+}
+
+
 $('.main-button-link').click(function( event ) {
 
-    if( $(this).attr('href') == '' ) {
+    var query = searchQuery();
+    event.preventDefault();
 
-        //alert('אתה חייב לבחור משהו...');
-        event.preventDefault();
-        
-        var data = 'id='+'2';
-        
+    var regex = /\d/g;
+    if(regex.test(query)){
 
+        var data = 'id='+query;
         $.ajax({
             data: data,
             type: "POST",
@@ -288,22 +310,24 @@ $('.main-button-link').click(function( event ) {
                 window.location.href = 'http://localhost/eatersTest/?page_id=1325';
             }
         });
-        
+
+    } else {
+        alert('אתה חייב לבחור משהו...');
     }
-
-
     
 });
 
 
-var ppp = 6; // Post per page
-var cat = 2;
-var pageNumber = 1;
+
 
 
 function load_posts(){
+    var ppp = 6; // Post per page
+    var cat = $('#more_posts').data('category');
+    var pageNumber = 1;
     pageNumber++;
     var str = '&cat=' + cat + '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+    alert(str);
     $.ajax({
         type: "POST",
         dataType: "html",
