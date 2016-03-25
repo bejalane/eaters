@@ -4,7 +4,7 @@
 <div id='ajax-posts' class='row'>
     <?php
     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-    $mycats = array(11,19);
+    $mycats = array(11,26);
     $args = array(
         'post_type' => 'post',
         'posts_per_page' => 1,
@@ -26,7 +26,7 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '11,19'; ?>'>Load More</div>
+<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '11,26'; ?>'>Load More</div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 
