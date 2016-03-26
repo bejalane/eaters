@@ -4,10 +4,10 @@
 <div id='ajax-posts' class='row'>
     <?php
     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-    $mycats = array(11,26);
+    $mycats = array(11);
     $args = array(
         'post_type' => 'post',
-        'posts_per_page' => 1,
+        'posts_per_page' => 18,
         'category__and' => $mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
@@ -26,7 +26,9 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '11,26'; ?>'>Load More</div>
+                </div>
+            </section>
+<div id='more_posts' style='width=100%; height=1px;' data-category='<?php echo '11'; ?>'></div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 

@@ -6,11 +6,11 @@
 
     header('Content-Type: text/html');
 
-    $mycats = array(11,26);
+    $mycats = array(11);
     $args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
-        'posts_per_page' => 1,
+        'posts_per_page' => 6,
         'category__and' => $mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',

@@ -298,11 +298,17 @@ $('.main-button-link').click(function( event ) {
 
     var query = searchQuery();
     event.preventDefault();
+    var postsnumber;
+    if( detectMobile() ) { 
+        postsnumber = 8;
+    } else {
+        postsnumber = 18;
+    }
 
     var regex = /\d/g;
     if(regex.test(query)){
 
-        var data = 'id='+query;
+        var data = 'id='+query + '&postsnumber=' + postsnumber;
         $.ajax({
             data: data,
             type: "POST",
@@ -319,8 +325,11 @@ $('.main-button-link').click(function( event ) {
     
 });
 
-
-
+$(window).scroll(function () { 
+   if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+       load_posts();
+   }
+});
 
 var pageNumber = 1;
 function load_posts(){
@@ -329,7 +338,7 @@ function load_posts(){
     var catand = 'array(' + cat + ')';
     pageNumber++;
     var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
-    alert(str);
+
     $.ajax({
         type: "POST",
         dataType: "html",
@@ -529,12 +538,8 @@ $('.main-search-food-wrapper').click(function(){
 
 
 
-
-
-
-
-function detectmobNearby() { 
-   if( navigator.userAgent.match(/Android/i)
+function detectMobile(){
+    if( navigator.userAgent.match(/Android/i)
        || navigator.userAgent.match(/webOS/i)
        || navigator.userAgent.match(/iPhone/i)
        || navigator.userAgent.match(/iPad/i)
@@ -542,13 +547,20 @@ function detectmobNearby() {
        || navigator.userAgent.match(/BlackBerry/i)
        || navigator.userAgent.match(/Windows Phone/i)
        ){
-    $('.main-search-place').val('מקומות קרובים אלי');
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-else {
 
-}
-}
 
+
+function detectmobNearby() { 
+   if( detectMobile() ){
+        $('.main-search-place').val('מקומות קרובים אלי');
+    }
+}
 detectmobNearby();
 
 

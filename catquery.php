@@ -1,6 +1,6 @@
 <?php 
-$catid = $_POST['id']; 
-echo $catid;
+$catid = $_POST['id'];
+$postsnumber = $_POST['postsnumber'];
 
 $myfile = fopen("page-1325.php", "w") or die("Unable to open file!");
 $txt = "<?php get_header(); ?>
@@ -12,7 +12,7 @@ $txt = "<?php get_header(); ?>
     \$mycats = array($catid);
     \$args = array(
         'post_type' => 'post',
-        'posts_per_page' => 1,
+        'posts_per_page' => $postsnumber,
         'category__and' => \$mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
@@ -31,7 +31,9 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-<div id='more_posts' style='padding-top:40px;' data-category='<?php echo '$catid'; ?>'>Load More</div>
+                </div>
+            </section>
+<div id='more_posts' style='width=100%; height=1px;' data-category='<?php echo '$catid'; ?>'></div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 
@@ -119,7 +121,7 @@ $txt = "
     \$args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
-        'posts_per_page' => 1,
+        'posts_per_page' => 6,
         'category__and' => \$mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',
