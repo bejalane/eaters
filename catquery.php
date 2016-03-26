@@ -1,6 +1,8 @@
 <?php 
 $catid = $_POST['id'];
 $postsnumber = $_POST['postsnumber'];
+echo $catid;
+
 
 $myfile = fopen("page-1325.php", "w") or die("Unable to open file!");
 $txt = "<?php get_header(); ?>
@@ -31,8 +33,8 @@ endwhile;
 wp_reset_postdata();
 ?>
 </div>
-                </div>
-            </section>
+</div>
+</section>
 <div id='more_posts' style='width=100%; height=1px;' data-category='<?php echo '$catid'; ?>'></div>
 
 <?php get_template_part( 'maincatFooter1' );?>
@@ -112,7 +114,7 @@ $myfile = fopen("includes/loadmore.php", "w") or die("Unable to open file!");
 $txt = "
 <?php function more_post_ajax(){
 
-    \$ppp = (isset(\$_POST['ppp'])) ? \$_POST['ppp'] : 6;
+    \$ppp = (isset(\$_POST['ppp'])) ? \$_POST['ppp'] : 8;
     \$page = (isset(\$_POST['pageNumber'])) ? \$_POST['pageNumber'] : 1;
 
     header('Content-Type: text/html');
@@ -121,7 +123,7 @@ $txt = "
     \$args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
-        'posts_per_page' => 6,
+        'posts_per_page' => $postsnumber,
         'category__and' => \$mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',

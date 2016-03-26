@@ -1,16 +1,16 @@
 
 <?php function more_post_ajax(){
 
-    $ppp = (isset($_POST['ppp'])) ? $_POST['ppp'] : 6;
+    $ppp = (isset($_POST['ppp'])) ? $_POST['ppp'] : 8;
     $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
 
     header('Content-Type: text/html');
 
-    $mycats = array(11);
+    $mycats = array(19,2);
     $args = array(
         'suppress_filters' => true,
         'post_type' => 'post',
-        'posts_per_page' => 6,
+        'posts_per_page' => 18,
         'category__and' => $mycats,
         'orderby' => 'meta_value_num',
         'meta_key' => '_liked',

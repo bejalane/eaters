@@ -33,7 +33,7 @@ function currentLoc() {
     }
 
     function showPosition(position) {
-        x.innerHTML = position.coords.latitude; 
+        x.innerHTML = position.coords.latitude;
     }
 
     function showPosition2(position) {
@@ -314,7 +314,6 @@ $('.main-button-link').click(function( event ) {
             type: "POST",
             url: "wp-content/themes/eaters_fast/catquery.php",
             success: function(result){
-                alert(result);
                 window.location.href = 'http://localhost/eatersTest/?page_id=1325';
             }
         });
@@ -350,94 +349,75 @@ function load_posts(){
             if($data.length){
                 $("#ajax-posts").append($data);
                 setTimeout(function(){
-
-                function markLoadedItemss(){
-                    var items = $('.page-item-slides');
-                        for(var i=0; i<items.length; i++) {
-                        var item = items[i];
-                        if( !$(item).hasClass('page-item-attached') ) {
-                            $(item).addClass('page-item-newAttached');
-                        }
-                    }
-                }
-                markLoadedItemss();
-
-                //DOM BUILDING FOR ITEM SLIDER
-                function sliderPicsFills(){
-                    var item = $('.page-item-newAttached').find('img');
-                    var fakeimg = $('.cat-fake-img').attr('src');
-
-                    for (var i = 0; i < item.length; i++) {
-                        var items = item[i];
-                        var src = $(items).attr('src');
-                        $(items).attr('src','');
-                        var href = $(items).parent().parent('ul').prev('a').attr('href');
-                        $(items).parent().parent('ul').append( '<li><a href='+href+'><img class="slider-img" src="' + fakeimg + '" data-src="'+src+'"></a></li>' );
-                        $(items).parent('a').remove();
-                        if($(items) > 10) {
-                            var x= parseInt()
-                        }
-                    }
-                }
-                sliderPicsFills();
-
-                //ADD FIRST IMG AS LAST FOR LOOP
-                function addFirstAsLasts(){
-                    var item = $('.page-item-newAttached');
-                    var fakeimg = $('.cat-fake-img').attr('data-src');
-                    for (var i = 0; i < item.length; i++) {
-                        var items = item[i];
-                        var src = $(items).children('li').first().children('a').children('img').attr('data-src');
-                        var href = $(items).prev('a').attr('href');
-                        $(items).append( '<li><a href='+href+'><img class="slider-img" src="' + fakeimg + '" data-src="'+src+'"></a></li>' );
-                    }
-                }
-
-                addFirstAsLasts();
-
-
-                sliderImgsSizes();
-                totalWidth();
-
-
-                function attached(){
-                    var items = $('.slider-img');
-                        for(var i=0; i<items.length; i++) {
-                        var item = items[i];
-                        if( !$(item).hasClass('attached') ) {
-                            $(item).addClass('newAttached');
-                        }
-                    }
-                }
-                attached();
-                function newAttached(){
-                     var items = $('.newAttached');
-                        for(var i=0; i<items.length; i++) {
-                        var item = items[i];
-                        var trueUrl = $(item).attr('data-src');
-                        $(item).attr('src',trueUrl);
-                        $(item).addClass('attached');
-                    }
-                }
-                newAttached();
-
-                /*var $wrapper = $('.page-items').children('.row');
-
-                $wrapper.find('.page-item').sort(function (a, b) {
-                    return +b.dataset.position - +a.dataset.position;
-                })
-                .appendTo( $wrapper );*/
-                function clearClasses(){
-                     $('.slider-img').removeClass('newAttached').addClass('attached');
-                     $('.page-item-slides').removeClass('page-item-newAttached').addClass('page-item-attached');
-
-                }
-                clearClasses();
+                    postAjax();
                 },1000);
 
-                
-                
-                
+                //$("#more_posts").attr("disabled",false);
+            } else{
+                //$("#more_posts").attr("disabled",true);
+            }
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+            alert('error');
+            $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+        }
+
+    });
+    return false;
+}
+
+//CATEGORIES MENU
+$('.term-item').click(function(event){
+
+    //IF cosher - need function
+
+        var foodId = parseInt($(this).attr('class'));
+        var cityId = $('#more_posts').data('category');
+        var allId = foodId + ','+ cityId;
+
+
+    
+    event.preventDefault();
+    var posts;
+    if( detectMobile() ) { 
+        posts = 8;
+    } else {
+        posts = 18;
+    }
+
+   $.ajax({
+            data: 'id='+allId + '&postsnumber=' + posts,
+            type: "POST",
+            url: "http://localhost/eatersTest/wp-content/themes/eaters_fast/catquery.php",
+            success: function(result){
+                window.location.href = 'http://localhost/eatersTest/?page_id=1325';
+            }
+        });
+    
+});
+
+
+function load_posts_cats(){
+    var ppp = 6; // Post per page
+    var cat = $('#more_posts').data('category');
+    var catand = 'array(' + cat + ')';
+    pageNumber++;
+    var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&action=more_post_ajax';
+
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: my_ajax_object.ajax_url,
+        data: str,
+        success: function(data){
+            var $data = $(data);
+            console.log(data);
+            if($data.length){
+                $("#ajax-posts").append($data);
+                setTimeout(function(){
+                    postAjax();
+                },1000);
+
                 //$("#more_posts").attr("disabled",false);
             } else{
                 //$("#more_posts").attr("disabled",true);
@@ -455,9 +435,92 @@ function load_posts(){
 $("#more_posts").click(function(){ // When btn is pressed.
     //$("#more_posts").attr("disabled",true); // Disable the button, temp.
     load_posts();
-
 });
 
+function postAjax(){
+    function markLoadedItemss(){
+        var items = $('.page-item-slides');
+        for(var i=0; i<items.length; i++) {
+            var item = items[i];
+            if( !$(item).hasClass('page-item-attached') ) {
+                $(item).addClass('page-item-newAttached');
+            }
+        }
+    }
+    markLoadedItemss();
+
+    //DOM BUILDING FOR ITEM SLIDER
+    function sliderPicsFills(){
+        var item = $('.page-item-newAttached').find('img');
+        var fakeimg = $('.cat-fake-img').attr('src');
+
+        for (var i = 0; i < item.length; i++) {
+            var items = item[i];
+            var src = $(items).attr('src');
+            $(items).attr('src','');
+            var href = $(items).parent().parent('ul').prev('a').attr('href');
+            $(items).parent().parent('ul').append( '<li><a href='+href+'><img class="slider-img" src="' + fakeimg + '" data-src="'+src+'"></a></li>' );
+            $(items).parent('a').remove();
+            if($(items) > 10) {
+                var x= parseInt()
+            }
+        }
+    }
+    sliderPicsFills();
+
+    //ADD FIRST IMG AS LAST FOR LOOP
+    function addFirstAsLasts(){
+        var item = $('.page-item-newAttached');
+        var fakeimg = $('.cat-fake-img').attr('data-src');
+        for (var i = 0; i < item.length; i++) {
+            var items = item[i];
+            var src = $(items).children('li').first().children('a').children('img').attr('data-src');
+            var href = $(items).prev('a').attr('href');
+            $(items).append( '<li><a href='+href+'><img class="slider-img" src="' + fakeimg + '" data-src="'+src+'"></a></li>' );
+        }
+    }
+
+    addFirstAsLasts();
+
+
+    sliderImgsSizes();
+    totalWidth();
+
+
+    function attached(){
+        var items = $('.slider-img');
+        for(var i=0; i<items.length; i++) {
+            var item = items[i];
+            if( !$(item).hasClass('attached') ) {
+                $(item).addClass('newAttached');
+            }
+        }
+    }
+    attached();
+    function newAttached(){
+       var items = $('.newAttached');
+       for(var i=0; i<items.length; i++) {
+        var item = items[i];
+        var trueUrl = $(item).attr('data-src');
+        $(item).attr('src',trueUrl);
+        $(item).addClass('attached');
+    }
+}
+newAttached();
+
+                /*var $wrapper = $('.page-items').children('.row');
+
+                $wrapper.find('.page-item').sort(function (a, b) {
+                    return +b.dataset.position - +a.dataset.position;
+                })
+.appendTo( $wrapper );*/
+function clearClasses(){
+   $('.slider-img').removeClass('newAttached').addClass('attached');
+   $('.page-item-slides').removeClass('page-item-newAttached').addClass('page-item-attached');
+
+}
+clearClasses();
+}
 
 
 //filter 
