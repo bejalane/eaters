@@ -1,5 +1,7 @@
 <?php 
 $catid = $_POST['id'];
+$catcity = $_POST['city'];
+$catfood = $_POST['food'];
 $postsnumber = $_POST['postsnumber'];
 echo $catid;
 
@@ -35,7 +37,7 @@ wp_reset_postdata();
 </div>
 </div>
 </section>
-<div id='more_posts' style='width=100%; height=1px;' data-category='<?php echo '$catid'; ?>'></div>
+<div id='more_posts' style='width=100%; height=1px;' data-category='<?php echo '$catid'; ?>' data-city='$catcity'  data-food='$catfood' data-kosher='false'></div>
 
 <?php get_template_part( 'maincatFooter1' );?>
 

@@ -1,1 +1,1 @@
-<?php $catid = '19,2' ?>
+<?php $catid = 'undefined' ?>

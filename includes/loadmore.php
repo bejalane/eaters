@@ -6,7 +6,7 @@
 
     header('Content-Type: text/html');
 
-    $mycats = array(19,2);
+    $mycats = array(undefined);
     $args = array(
         'suppress_filters' => true,
         'post_type' => 'post',

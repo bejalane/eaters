@@ -296,6 +296,9 @@ function searchQuery(){
 
 $('.main-button-link').click(function( event ) {
 
+    var city = checkInputPlace();
+    var food = checkInputFood();
+
     var query = searchQuery();
     event.preventDefault();
     var postsnumber;
@@ -308,7 +311,8 @@ $('.main-button-link').click(function( event ) {
     var regex = /\d/g;
     if(regex.test(query)){
 
-        var data = 'id='+query + '&postsnumber=' + postsnumber;
+        var data = 'id='+query + '&postsnumber=' + postsnumber + '&city=' + city + '&food=' + food;
+        console.log(data);
         $.ajax({
             data: data,
             type: "POST",
@@ -372,8 +376,29 @@ $('.term-item').click(function(event){
     //IF cosher - need function
 
         var foodId = parseInt($(this).attr('class'));
-        var cityId = $('#more_posts').data('category');
-        var allId = foodId + ','+ cityId;
+        var kosher = $('#more_posts').data('kosher');
+        if(foodId != 18 && kosher != 1) {
+            var cityId = $('#more_posts').data('category');
+            var city = $('#more_posts').data('city');
+            var allId = foodId + ','+ city;
+        } else if (foodId == 18 && kosher != 1){
+            /*var cityId = $('#more_posts').data('category');
+            var city = $('#more_posts').data('city');
+            kosher = 1;
+            foodId = ('#more_posts').data('food');
+            allId = foodId + ','+ city + ',' + 18;
+            alert(allId);*/
+            alert('1');
+        } else if (foodId == 18 && kosher == 1) {
+            /*var cityId = $('#more_posts').data('category');
+            var city = $('#more_posts').data('city');
+            foodId = ('#more_posts').data('food');
+            kosher = 2;
+            allId = foodId + ','+ city;
+            alert(allId);*/
+            alert('2');
+        }
+        
 
 
     
@@ -386,7 +411,7 @@ $('.term-item').click(function(event){
     }
 
    $.ajax({
-            data: 'id='+allId + '&postsnumber=' + posts,
+            data: 'id='+allId + '&postsnumber=' + posts + '&city=' + city + '&kosher=' + kosher + '&food=' + foodId,
             type: "POST",
             url: "http://localhost/eatersTest/wp-content/themes/eaters_fast/catquery.php",
             success: function(result){
